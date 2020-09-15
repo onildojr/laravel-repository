@@ -3,9 +3,9 @@
 namespace App\Http\Validators\Interfaces;
 
 /**
- * Interface UserValidator
+ * Interface TrackValidator
  * @package App\Http\Validators\Interfaces
  */
-interface IUserValidator extends IValidator
+interface ITrackValidator extends IValidator
 {
 }

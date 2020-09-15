@@ -24,37 +24,40 @@ class BaseRepository implements IEloquentRepository
     }
 
     /**
-    * @param array $attributes
-    *
-    * @return Model
-    */
+     * @param array $attributes
+     *
+     * @return Model
+     */
     public function create(array $attributes): Model
     {
-        return $this->_model->create($attributes);
+        $model = $this->_model->create($attributes);
+        $model->refresh();
+
+        return $model;
     }
 
     /**
-    * @param $id
-    * @return Model
-    */
+     * @param $id
+     * @return Model
+     */
     public function find($id): ?Model
     {
         return $this->_model->find($id);
     }
 
     /**
-    * @return Collection
-    */
-    public function all() : Collection
+     * @return Collection
+     */
+    public function all(): Collection
     {
         return $this->_model->all();
     }
 
     /**
-    * @param int $id
-    * @return Model
-    */
-    public function update(int $id, array $attributes) : Model
+     * @param int $id
+     * @return Model
+     */
+    public function update(int $id, array $attributes): Model
     {
         $item = $this->_model->find($id);
         $item->fill($attributes);
@@ -63,10 +66,10 @@ class BaseRepository implements IEloquentRepository
     }
 
     /**
-    * @param int $id
-    * @return Model
-    */
-    public function delete(int $id) : Model
+     * @param int $id
+     * @return Model
+     */
+    public function delete(int $id): Model
     {
         $item = $this->_model->find($id);
         $item->delete();

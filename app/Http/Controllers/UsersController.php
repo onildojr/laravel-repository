@@ -2,15 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Foundation\Validation\ValidatesRequests;
+use App\Helpers\Response;
 use App\Services\Interfaces\IUserService;
 use App\Http\Validators\Interfaces\IUserValidator;
-use App\Http\Validators\UserValidator;
+use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Routing\Controller as BaseController;
 
 class UsersController extends Controller
 {
@@ -27,28 +23,63 @@ class UsersController extends Controller
 
     public function all()
     {
-        $users = $this->_userService->all();
-
-        return Ok($users);
+        try {
+            $users = $this->_userService->all();
+            return Response::ok($users);
+        } catch (Exception $e) {
+            return Response::internalServerError();
+        }
     }
 
     public function find(int $id)
     {
-        $users = $this->_userService->find($id);
-
-        return Ok($users);
+        try {
+            $user = $this->_userService->find($id);
+            return Response::ok($user);
+        } catch (Exception $e) {
+            return Response::internalServerError();
+        }
     }
 
     public function create(Request $request)
     {
-        $data = $request->all();
-        $errors = $this->_userValidator->isValid($data);
-        if ($errors) {
-            return BadRequest($errors);
+        try {
+            $data = $request->all();
+            $errors = $this->_userValidator->isValid($data);
+            if ($errors) {
+                return Response::badRequest($errors);
+            }
+
+            $user = $this->_userService->create($data);
+            return Response::created($user);
+        } catch (Exception $e) {
+            return Response::internalServerError();
         }
+    }
 
-        $user = $this->_userService->create($data);
+    public function update(Request $request, int $id)
+    {
+        try {
+            $data = $request->all();
+            $errors = $this->_userValidator->isValid($data);
+            if ($errors) {
+                return Response::badRequest($errors);
+            }
 
-        return Created($user);
+            $user = $this->_userService->update($id, $data);
+            return Response::ok($user);
+        } catch (Exception $e) {
+            return Response::internalServerError();
+        }
+    }
+
+    public function delete(int $id)
+    {
+        try {
+            $user = $this->_userService->delete($id);
+            return Response::ok($user);
+        } catch (Exception $e) {
+            return Response::internalServerError();
+        }
     }
 }
