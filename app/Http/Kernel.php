@@ -63,5 +63,11 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+
+        #region Validações Models
+        'validate.user' => \App\Http\Middleware\Validators\ValidateUser::class,
+        'validate.album' => \App\Http\Middleware\Validators\ValidateAlbum::class,
+        'validate.artist' => \App\Http\Middleware\Validators\ValidateArtist::class,
+        #endregion
     ];
 }

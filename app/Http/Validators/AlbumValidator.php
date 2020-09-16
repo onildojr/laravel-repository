@@ -9,11 +9,8 @@ use Illuminate\Support\Facades\Validator;
 
 class AlbumValidator implements IAlbumValidator
 {
-    private $_artistService;
-
-    public function __construct(IArtistService $artistService)
+    public function __construct()
     {
-        $this->_artistService = $artistService;
     }
 
     /**

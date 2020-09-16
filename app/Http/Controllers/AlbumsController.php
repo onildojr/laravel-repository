@@ -12,17 +12,11 @@ use Illuminate\Http\Request;
 class AlbumsController extends Controller
 {
     private $_albumService;
-    private $_albumValidator;
-    private $_trackValidator;
 
     public function __construct(
-        IAlbumService $albumService,
-        IAlbumValidator $albumValidator,
-        ITrackValidator $trackValidator
+        IAlbumService $albumService
     ) {
         $this->_albumService = $albumService;
-        $this->_albumValidator = $albumValidator;
-        $this->_trackValidator = $trackValidator;
     }
 
     public function all()
@@ -48,25 +42,9 @@ class AlbumsController extends Controller
     public function create(Request $request)
     {
         try {
-            $data = $request->all();
-            $errors = $this->_albumValidator->isValid($data);
-            if ($errors) {
-                return Response::badRequest($errors);
-            }
-
-            if ($request->has('tracks')) {
-                foreach ($request->tracks as $track) {
-                    $errors = $this->_trackValidator->isValid($data);
-                    if ($errors) {
-                        return Response::badRequest($errors);
-                    }
-                }
-            }
-
-            $album = $this->_albumService->create($data);
+            $album = $this->_albumService->create($request->all());
             return Response::created($album);
         } catch (Exception $e) {
-            dd($e->getMessage() . "  " . $e->getLine() . "  " . $e->getFile());
             return Response::internalServerError();
         }
     }
@@ -74,13 +52,7 @@ class AlbumsController extends Controller
     public function update(Request $request, int $id)
     {
         try {
-            $data = $request->all();
-            $errors = $this->_albumValidator->isValid($data);
-            if ($errors) {
-                return Response::badRequest($errors);
-            }
-
-            $album = $this->_albumService->update($id, $data);
+            $album = $this->_albumService->update($id, $request->all());
             return Response::ok($album);
         } catch (Exception $e) {
             return Response::internalServerError();

@@ -3,26 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Response;
-use App\Services\Interfaces\IUserService;
-use App\Http\Validators\Interfaces\IUserValidator;
+use App\Services\Interfaces\IArtistService;
 use Exception;
 use Illuminate\Http\Request;
 
-class UsersController extends Controller
+class ArtistsController extends Controller
 {
-    private $_userService;
+    private $_artistService;
 
     public function __construct(
-        IUserService $userService
+        IArtistService $artistService
     ) {
-        $this->_userService = $userService;
+        $this->_artistService = $artistService;
     }
 
     public function all()
     {
         try {
-            $users = $this->_userService->all();
-            return Response::ok($users);
+            $artists = $this->_artistService->all();
+            return Response::ok($artists);
         } catch (Exception $e) {
             return Response::internalServerError();
         }
@@ -31,8 +30,8 @@ class UsersController extends Controller
     public function find(int $id)
     {
         try {
-            $user = $this->_userService->find($id);
-            return Response::ok($user);
+            $artist = $this->_artistService->find($id);
+            return Response::ok($artist);
         } catch (Exception $e) {
             return Response::internalServerError();
         }
@@ -41,8 +40,8 @@ class UsersController extends Controller
     public function create(Request $request)
     {
         try {
-            $user = $this->_userService->create($request->all());
-            return Response::created($user);
+            $artist = $this->_artistService->create($request->all());
+            return Response::created($artist);
         } catch (Exception $e) {
             return Response::internalServerError();
         }
@@ -51,8 +50,8 @@ class UsersController extends Controller
     public function update(Request $request, int $id)
     {
         try {
-            $user = $this->_userService->update($id, $request->all());
-            return Response::ok($user);
+            $artist = $this->_artistService->update($id, $request->all());
+            return Response::ok($artist);
         } catch (Exception $e) {
             return Response::internalServerError();
         }
@@ -61,8 +60,8 @@ class UsersController extends Controller
     public function delete(int $id)
     {
         try {
-            $user = $this->_userService->delete($id);
-            return Response::ok($user);
+            $artist = $this->_artistService->delete($id);
+            return Response::ok($artist);
         } catch (Exception $e) {
             return Response::internalServerError();
         }

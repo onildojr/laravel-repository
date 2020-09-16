@@ -9,11 +9,8 @@ use Illuminate\Support\Facades\Validator;
 
 class TrackValidator implements ITrackValidator
 {
-    private $_albumService;
-
-    public function __construct(IAlbumService $albumService)
+    public function __construct()
     {
-        $this->_albumService = $albumService;
     }
 
     /**

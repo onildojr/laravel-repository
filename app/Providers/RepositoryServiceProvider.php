@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Http\Validators\AlbumValidator;
+use App\Http\Validators\ArtistValidator;
 use App\Http\Validators\Interfaces\IAlbumValidator;
 use App\Http\Validators\Interfaces\IArtistValidator;
 use App\Http\Validators\Interfaces\ITrackValidator;

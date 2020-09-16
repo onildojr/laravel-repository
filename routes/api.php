@@ -18,17 +18,25 @@ Route::group(['prefix' => 'v1'], function () {
     Route::group(['prefix' => 'users'], function () {
         Route::get('/', 'UsersController@all');
         Route::get('/{id}', 'UsersController@find');
-        Route::post('/', 'UsersController@create');
-        Route::put('/{id}', 'UsersController@update');
+        Route::post('/', 'UsersController@create')->middleware('validate.user');
+        Route::put('/{id}', 'UsersController@update')->middleware('validate.user');
         Route::delete('/{id}', 'UsersController@delete');
     });
 
     Route::group(['prefix' => 'albums'], function () {
         Route::get('/', 'AlbumsController@all');
         Route::get('/{id}', 'AlbumsController@find');
-        Route::post('/', 'AlbumsController@create');
-        Route::put('/{id}', 'AlbumsController@update');
+        Route::post('/', 'AlbumsController@create')->middleware('validate.album');
+        Route::put('/{id}', 'AlbumsController@update')->middleware('validate.album');
         Route::delete('/{id}', 'AlbumsController@delete');
+    });
+
+    Route::group(['prefix' => 'artists'], function () {
+        Route::get('/', 'ArtistsController@all');
+        Route::get('/{id}', 'ArtistsController@find');
+        Route::post('/', 'ArtistsController@create')->middleware('validate.artist');
+        Route::put('/{id}', 'ArtistsController@update')->middleware('validate.artist');
+        Route::delete('/{id}', 'ArtistsController@delete');
     });
 });
 

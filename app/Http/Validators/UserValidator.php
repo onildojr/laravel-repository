@@ -9,14 +9,11 @@ use Illuminate\Support\Facades\Validator;
 
 class UserValidator implements IUserValidator
 {
-    private $_userService;
-
     /**
      * BaseRepository constructor.
      */
-    public function __construct(IUserService $userService)
+    public function __construct()
     {
-        $this->_userService = $userService;
     }
 
     /**

@@ -3,10 +3,10 @@
 namespace App\Http\Validators;
 
 use App\Helpers\Format;
-use App\Http\Validators\Interfaces\IAlbumValidator;
+use App\Http\Validators\Interfaces\IArtistValidator;
 use Illuminate\Support\Facades\Validator;
 
-class AlbumValidator implements IAlbumValidator
+class ArtistValidator implements IArtistValidator
 {
     public function __construct()
     {
@@ -18,7 +18,7 @@ class AlbumValidator implements IAlbumValidator
      */
     public function isValid(array $data): ?array
     {
-        $validator =  Validator::make($data, $this->rules(), $this->messages());
+        $validator = Validator::make($data, $this->rules(), $this->messages());
 
         if ($validator->fails()) {
             return Format::messageBag($validator->errors());
