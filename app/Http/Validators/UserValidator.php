@@ -41,7 +41,8 @@ class UserValidator implements IUserValidator
             'birth' => 'required|date',
             'gender' => 'required|max:1|in:M,F',
             'username' => 'required|max:50|unique:App\Models\User,username',
-            'password' => 'required|max:25|min:6'
+            'password' => 'required|max:25|min:6',
+            'cpf' => 'required|cpf'
         ];
     }
 
@@ -59,7 +60,8 @@ class UserValidator implements IUserValidator
             'gender.in' => 'O campo gender deve ser M ou F.',
             'username.max' => 'O campo username deve ter no máximo 50 caracteres.',
             'password.max' => 'O campo password deve ter no máximo 25 caracteres.',
-            'password.min' => 'O campo password deve ter no mínimo 6 caracteres.'
+            'password.min' => 'O campo password deve ter no mínimo 6 caracteres.',
+            'cpf' => 'CPF inválido'
         ];
     }
 }

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Response;
+use App\Http\Requests\ArtistRquest;
+use App\Repositories\Eloquent\ArtistRepository;
 use App\Services\Interfaces\IArtistService;
 use Exception;
 use Illuminate\Http\Request;
@@ -37,7 +39,7 @@ class ArtistsController extends Controller
         }
     }
 
-    public function create(Request $request)
+    public function create(ArtistRquest $request)
     {
         try {
             $artist = $this->_artistService->create($request->all());

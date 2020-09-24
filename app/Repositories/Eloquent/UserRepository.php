@@ -11,9 +11,9 @@ class UserRepository extends BaseRepository implements IUserRepository
     protected $_model;
 
     /**
-    * UserRepository constructor.
-    * @param User $model
-    */
+     * UserRepository constructor.
+     * @param User $model
+     */
     public function __construct(User $model)
     {
         $this->_model = $model;
@@ -21,14 +21,13 @@ class UserRepository extends BaseRepository implements IUserRepository
     }
 
     /**
-    * Busca um usuário por username.
-    * @param string $username
-    *
-    * @return User
-    */
-    public function findByUserName(string $username) : ?User
+     * Busca um usuário por username.
+     * @param string $username
+     *
+     * @return User
+     */
+    public function findByUserName(string $username): ?User
     {
         return $this->_model->where('username', '=', $username)->first();
     }
-
 }
